@@ -1,0 +1,18 @@
+string getUserState(int userId, int languageId = 1) //opcioni parametri se navode na kraju  [ne moze na primer (int languageId=1, int userId)]
+ {
+ if (languageId = 1)
+  return "Serbia
+ if (languageId=2)
+  return "Srbija"
+  
+ }
+ 
+ 
+getUserState(100);  /// getUserState(int)
+Serbia
+   
+getUserState(100, 1) /// getUserState(int,int)
+Serbia
+
+getUserState(100,2)
+Srbija
