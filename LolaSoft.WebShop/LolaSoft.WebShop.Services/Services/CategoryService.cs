@@ -13,6 +13,7 @@ namespace LolaSoft.WebShop.Services.Services
         CategoryDto GetById(int id);
         void Add(CategoryDto entity);
         List<CategoryDto> GetAll();
+        List<CategoryDto> GetAllWithParentCategory();
     }
     public class CategoryService : ICategoryService
     {
@@ -37,6 +38,12 @@ namespace LolaSoft.WebShop.Services.Services
             var allCategories = categoryRepository.GetAll();
 
             return  allCategories.Select(CategoryMapper.ToDto).ToList();
+        }
+
+        public List<CategoryDto> GetAllWithParentCategory()
+        {
+            var allCategoriesWithParentCategory = categoryRepository.GetAll();
+            return allCategoriesWithParentCategory.Select(CategoryMapper.ToDto).ToList();
         }
 
         public CategoryDto GetById(int id)
