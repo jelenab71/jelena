@@ -54,13 +54,14 @@ namespace LolaSoft.WebShop.Services.Services
 
         public void Update(CategoryDto category)
         {
-            var existingCategory = GetById(category.Id);
+            var existingCategory = categoryRepository.Get(category.Id);
             if (existingCategory == null)
                 throw new BadRequestException();
-            existingCategory.Name = category.Name;
-            existingCategory.ParentCategoryId = category.ParentCategoryId;
 
-            categoryRepository.Update(CategoryMapper.ToModel(existingCategory));
+            existingCategory.Name = category.Name;
+            existingCategory.ParentCategoryId = category.ParentCategoryId;            
+
+            categoryRepository.Update(existingCategory);
         }
     }
 }
