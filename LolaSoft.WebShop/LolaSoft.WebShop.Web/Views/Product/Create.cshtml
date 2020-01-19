@@ -1,0 +1,55 @@
+﻿@model CreateProductViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create Product</h2>
+
+@using (Html.BeginForm("Create", "Product", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Price, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Price)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.StockQuantity, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.StockQuantity)
+        </div>
+    </div>
+
+    @*<div class="form-group">
+        @Html.LabelFor(m => m.CreatedOn, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.CreatedOn)
+        </div>
+    </div>*@
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Categories, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.CategoryId, Model.Categories)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+
+}
