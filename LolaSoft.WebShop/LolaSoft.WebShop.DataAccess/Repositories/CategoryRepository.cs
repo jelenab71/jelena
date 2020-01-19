@@ -22,5 +22,6 @@ namespace LolaSoft.WebShop.DataAccess.Repositories
         {
             return context.Categories.ToList();
         }
+
     }
 }
