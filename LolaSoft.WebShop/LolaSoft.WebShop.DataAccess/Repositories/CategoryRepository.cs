@@ -8,7 +8,6 @@ namespace LolaSoft.WebShop.DataAccess.Repositories
 {
     public interface ICategoryRepository : IGenericRepository<Category>
     {
-        List<Category> GetAll();
     }
     public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
     {
@@ -17,11 +16,5 @@ namespace LolaSoft.WebShop.DataAccess.Repositories
         {
 
         }
-
-        public List<Category> GetAll()
-        {
-            return context.Categories.ToList();
-        }
-
     }
 }
