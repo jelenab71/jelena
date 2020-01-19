@@ -70,5 +70,33 @@ namespace LolaSoft.WebShop.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var allCategories = categoryService.GetAll();
+            var vm = new CreateCategoryViewModel
+            {
+                ParentCategory = allCategories.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }).ToList()
+            };
+
+            return View(vm);
+        }
+
+        public IActionResult Create(CreateCategoryViewModel vm)
+        {
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            var categoryDto = new CategoryDto
+            {
+                Name = vm.Name,
+                ParentCategoryId = vm.ParentCategoryId
+            };
+
+            categoryService.Add(categoryDto);
+
+            return RedirectToAction("Index");
+        }
     }
 }
