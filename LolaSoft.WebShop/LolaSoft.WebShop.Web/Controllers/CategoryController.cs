@@ -119,5 +119,20 @@ namespace LolaSoft.WebShop.Web.Controllers
 
             return View(vm);
         }
+
+        public IActionResult Delete(int id) 
+        {
+            try
+            {
+                categoryService.Delete(id);
+            }
+            catch (BadRequestException)
+            {
+                return StatusCode(404);
+            }
+            
+            return RedirectToAction("Index");
+
+        }
     }
 }

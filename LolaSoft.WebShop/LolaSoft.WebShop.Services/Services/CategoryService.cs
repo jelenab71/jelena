@@ -15,6 +15,7 @@ namespace LolaSoft.WebShop.Services.Services
         List<CategoryDto> GetAll();
         List<CategoryDto> GetAllWithParentCategory();
         void Update(CategoryDto category);
+        void Delete(int id);
     }
     public class CategoryService : ICategoryService
     {
@@ -32,6 +33,15 @@ namespace LolaSoft.WebShop.Services.Services
         {
             categoryRepository.Add(CategoryMapper.ToModel(entity));
             context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var existingCategory = GetById(id);
+            if (existingCategory == null)
+                throw new BadRequestException();
+
+            categoryRepository.Delete(CategoryMapper.ToModel(existingCategory));
         }
 
         public List<CategoryDto> GetAll()
