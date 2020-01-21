@@ -98,5 +98,26 @@ namespace LolaSoft.WebShop.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Details(int id)
+        {
+            CategoryDto category;
+            try
+            {
+                category = categoryService.GetById(id);
+            }
+            catch (BadRequestException)
+            {
+                return StatusCode(400);
+            }
+            var vm = new DetailsCategoryViewModel
+            {
+                Id = category.Id,
+                Name = category.Name,
+                ParentCategoryName = category.ParentCategory?.Name 
+            };
+
+            return View(vm);
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace LolaSoft.WebShop.Services.Services
         private readonly ICategoryRepository categoryRepository;
         private readonly WebShopDbContext context;
 
-        public CategoryService(ICategoryRepository categoryRepository, 
+        public CategoryService(ICategoryRepository categoryRepository,
                                 WebShopDbContext context)
         {
             this.categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
@@ -38,7 +38,7 @@ namespace LolaSoft.WebShop.Services.Services
         {
             var allCategories = categoryRepository.GetAll();
 
-            return  allCategories.Select(CategoryMapper.ToDto).ToList();
+            return allCategories.Select(CategoryMapper.ToDto).ToList();
         }
 
         public List<CategoryDto> GetAllWithParentCategory()
@@ -49,7 +49,11 @@ namespace LolaSoft.WebShop.Services.Services
 
         public CategoryDto GetById(int id)
         {
-            return CategoryMapper.ToDto(categoryRepository.Get(id));
+            var existingCategory = CategoryMapper.ToDto(categoryRepository.Get(id));
+            if (existingCategory == null)
+                throw new BadRequestException();
+
+            return existingCategory;
         }
 
         public void Update(CategoryDto category)
