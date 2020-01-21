@@ -18,7 +18,7 @@
                 @Html.DisplayNameFor(m => m.UserName)
             </th>
             <th>
-                @Html.Display("Create/Details/Delete")
+                @Html.Display("Edit/Details/Delete")
             </th>
         </tr>
     </thead>
@@ -36,7 +36,7 @@
                     @Html.DisplayFor(m => item.UserName)
                 </td>
                 <td>
-                    @Html.ActionLink("Create", "Create", new { @id = item.Id })
+                    @Html.ActionLink("Edit", "Edit", new { @id = item.Id })
                     @Html.ActionLink("Details", "Details", new { @id = item.Id })
                     @Html.ActionLink("Delete", "Delete", new { @id = item.Id })
                 </td>
