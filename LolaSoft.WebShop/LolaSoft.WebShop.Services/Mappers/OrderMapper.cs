@@ -11,7 +11,8 @@ namespace LolaSoft.WebShop.Services.Mappers
             {
                 Id = orderDto.Id,
                 CreatedOn = orderDto.CreatedOn,
-                UserId = orderDto.UserId
+                UserId = orderDto.UserId, 
+                User =UserMapper.ToModel(orderDto.User)
             };
         }
 
@@ -21,7 +22,8 @@ namespace LolaSoft.WebShop.Services.Mappers
             {
                 Id = order.Id,
                 CreatedOn = order.CreatedOn,
-                UserId = order.UserId
+                UserId = order.UserId, 
+                User = UserMapper.ToDto(order.User)
             };
         }
     }
