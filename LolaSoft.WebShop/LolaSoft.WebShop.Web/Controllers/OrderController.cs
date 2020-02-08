@@ -14,12 +14,14 @@ namespace LolaSoft.WebShop.Controllers
     {
         private readonly IOrderService orderService;
         private readonly IUserService userService;
-        public OrderController(IOrderService orderService, 
+
+        public OrderController(IOrderService orderService,
             IUserService userService)
         {
             this.orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
             this.userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
+
         public IActionResult Index()
         {
             var allOrders = orderService.GetAllWithUser();
@@ -33,7 +35,7 @@ namespace LolaSoft.WebShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             var allUsers = userService.GetAll();
             var vm = new CreateOrderViewModel
@@ -54,11 +56,49 @@ namespace LolaSoft.WebShop.Controllers
                 return View(vm);
             var orderDto = new OrderDto
             {
-                UserId = vm.UserId, 
+                UserId = vm.UserId,
                 CreatedOn = DateTime.UtcNow
             };
 
             orderService.Add(orderDto);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            var order = orderService.GetById(Id);
+            var allUsers = userService.GetAll();
+
+            var vm = new EditOrderViewModel
+            {
+                Id = order.Id,
+                UserId = order.UserId,
+                Users = allUsers.Select(u => new SelectListItem {Text = u.FirstName, Value = u.Id.ToString()}).ToList()
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditOrderViewModel vm)
+        {
+            if (!ModelState.IsValid)
+                return View(vm);
+            
+            try
+            {
+                orderService.Update(new OrderDto
+                {
+                    Id = vm.Id,
+                    UserId = vm.UserId
+                });
+            }
+            catch (BadRequestException)
+            {
+                return StatusCode(400);
+            }
 
             return RedirectToAction("Index");
         }

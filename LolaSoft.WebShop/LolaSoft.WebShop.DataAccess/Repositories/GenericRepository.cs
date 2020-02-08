@@ -31,7 +31,6 @@ namespace LolaSoft.WebShop.DataAccess.Repositories
 
         public void Update(T entity)
         {
-
             context.Update<T>(entity);
         }
 

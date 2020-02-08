@@ -5,6 +5,7 @@ using LolaSoft.WebShop.Services.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace LolaSoft.WebShop.Services.Services
 {
@@ -13,6 +14,7 @@ namespace LolaSoft.WebShop.Services.Services
         OrderDto GetById(int id);
         void Add(OrderDto entity);
         List<OrderDto> GetAllWithUser();
+        void Update(OrderDto order);
     }
     public class OrderService : IOrderService
     {
@@ -41,6 +43,18 @@ namespace LolaSoft.WebShop.Services.Services
         public OrderDto GetById(int id)
         {
             return OrderMapper.ToDto(orderRepository.Get(id));
+        }
+
+        public void Update(OrderDto order)
+        {
+            var existingOrder = orderRepository.Get(order.Id);
+            if (existingOrder == null)
+                throw new BadRequestException();
+
+            existingOrder.UserId = order.UserId;
+
+            orderRepository.Update(existingOrder);
+            context.SaveChanges();
         }
     }
 }

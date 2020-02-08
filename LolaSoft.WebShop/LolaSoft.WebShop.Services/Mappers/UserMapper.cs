@@ -7,6 +7,9 @@ namespace LolaSoft.WebShop.Services.Mappers
     {
         public static User ToModel(UserDto userDto)
         {
+            if (userDto == null)
+                return null; 
+
             return new User()
             {
                 Id = userDto.Id,
@@ -19,7 +22,10 @@ namespace LolaSoft.WebShop.Services.Mappers
 
         public static UserDto ToDto(User user)
         {
-            return new UserDto()
+            if (user == null)
+                return null;
+
+            return new UserDto
             {
                 Id = user.Id,
                 FirstName = user.FirstName,

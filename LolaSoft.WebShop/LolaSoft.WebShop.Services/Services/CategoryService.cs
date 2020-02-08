@@ -76,6 +76,7 @@ namespace LolaSoft.WebShop.Services.Services
             existingCategory.ParentCategoryId = category.ParentCategoryId;            
 
             categoryRepository.Update(existingCategory);
+            context.SaveChanges();
         }
     }
 }
